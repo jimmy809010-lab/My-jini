@@ -111,7 +111,14 @@ section{padding:72px 24px;}
 footer{background:#060f25;color:rgba(255,255,255,0.5);text-align:center;padding:24px;font-size:13px;}
 footer span{color:#4fa3e0;}
 
-/* SCROLL TO TOP */
+/* SEARCH BAR */
+#search-bar-wrap{background:#fff;border-bottom:1px solid #e0e8f5;padding:10px 48px;position:sticky;top:73px;z-index:99;display:flex;align-items:center;gap:12px;}
+#search-input{flex:1;max-width:480px;padding:10px 18px 10px 42px;border:1.5px solid #c5ddf7;border-radius:30px;font-size:14px;color:#333;outline:none;transition:border .2s;background:#f4f8ff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7' stroke='%230d3d8a' stroke-width='2'/%3E%3Cpath d='M20 20l-3.5-3.5' stroke='%230d3d8a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 14px center;}
+#search-input:focus{border-color:#0d3d8a;background-color:#fff;}
+#search-count{font-size:13px;color:#888;white-space:nowrap;}
+#search-clear{display:none;background:#e8f2ff;border:none;color:#0d3d8a;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;cursor:pointer;}
+#no-results{display:none;text-align:center;padding:48px 24px;color:#888;font-size:16px;}
+@media(max-width:700px){#search-bar-wrap{padding:10px 16px;top:62px;}}
 #scrollTop{position:fixed;bottom:100px;right:28px;width:44px;height:44px;background:#0d3d8a;color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(13,61,138,0.35);z-index:998;transition:all .2s;}
 #scrollTop:hover{background:#1a5fbb;transform:translateY(-3px);}
 
@@ -217,7 +224,13 @@ footer span{color:#4fa3e0;}
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- SEARCH BAR -->
+<div id="search-bar-wrap">
+  <input id="search-input" type="text" placeholder="🔍  Search by name, business, role, location..." oninput="doSearch(this.value)"/>
+  <span id="search-count"></span>
+  <button id="search-clear" onclick="clearSearch()">✕ Clear</button>
+</div>
+<div id="no-results"><div style="font-size:40px;margin-bottom:12px;">🔍</div><div>"<span id="no-results-term"></span>" — koi result nahi mila</div><div style="font-size:13px;margin-top:8px;">Koi aur naam ya business search karein</div></div>
 <section class="hero">
   <div class="hero-content">
     <div class="hero-bird">
@@ -417,7 +430,7 @@ footer span{color:#4fa3e0;}
         <p>Our team is always reachable. Whether it's a query, concern, or opportunity — we're just a call or message away.</p>
       </div>
       <!-- LAXMI BARTAN GRAH CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #e8a020;box-shadow:0 4px 24px rgba(232,160,32,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(232,100,0,0.22)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(232,160,32,0.15)';this.style.transform='translateY(0)'">
+      <div class="searchable-card" data-search="laxmi bartan grah bartan utensils cookware kaushambi vandana jaiswal" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #e8a020;box-shadow:0 4px 24px rgba(232,160,32,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(232,100,0,0.22)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(232,160,32,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
           <!-- Logo & Brand -->
           <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
@@ -488,7 +501,7 @@ footer span{color:#4fa3e0;}
       </div>
 
       <!-- SHAKUNTALA TRADERS CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #16a34a;box-shadow:0 4px 24px rgba(22,163,74,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(22,163,74,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(22,163,74,0.15)';this.style.transform='translateY(0)'">
+      <div style="background:#fff;border-radius:14px;padding:32px;class="searchable-card" data-search="shakuntala traders ration grocery kirana payal jaiswal makhaupur kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #16a34a;box-shadow:0 4px 24px rgba(22,163,74,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(22,163,74,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(22,163,74,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
           <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
             <div style="width:90px;height:90px;background:linear-gradient(135deg,#14532d,#16a34a,#4ade80);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;border:3px solid #4ade80;box-shadow:0 4px 16px rgba(22,163,74,0.35);">🏗️</div>
@@ -543,7 +556,7 @@ footer span{color:#4fa3e0;}
       </div>
 
       <!-- AMOOL CHANDRA KESHARWANI CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #7c3aed;box-shadow:0 4px 24px rgba(124,58,237,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(124,58,237,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(124,58,237,0.15)';this.style.transform='translateY(0)'">
+      <div class="searchable-card" data-search="amool chandra kesharwani dth dish tv cable anshu jaiswal kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #7c3aed;box-shadow:0 4px 24px rgba(124,58,237,0.15;transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(124,58,237,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(124,58,237,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -609,7 +622,7 @@ footer span{color:#4fa3e0;}
       </div>
 
       <!-- KANCHAN ELECTRICAL CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #f59e0b;box-shadow:0 4px 24px rgba(245,158,11,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(245,158,11,0.28)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(245,158,11,0.15)';this.style.transform='translateY(0)'">
+      <div class="searchable-card" data-search="kanak kanchan electrical rajesh jaiswal wiring light hardware tilhapur" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #f59e0b;box-shadow:0 4px 24px rgba(245,158,11,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(245,158,11,0.28)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(245,158,11,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -674,7 +687,7 @@ footer span{color:#4fa3e0;}
       </div>
 
       <!-- AMIT SEN CSC CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #1a5fbb;box-shadow:0 4px 24px rgba(13,61,138,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(13,61,138,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(13,61,138,0.15)';this.style.transform='translateY(0)'">
+      <div class="searchable-card" data-search="amit sen csc center government services pan aadhaar bijli bill kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #1a5fbb;box-shadow:0 4px 24px rgba(13,61,138,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(13,61,138,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(13,61,138,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
           <!-- Logo & Brand -->
           <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
@@ -729,7 +742,7 @@ footer span{color:#4fa3e0;}
       </div>
 
       <!-- ANSHU DTH SALES & SERVICE CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #7c3aed;box-shadow:0 4px 24px rgba(124,58,237,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(124,58,237,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(124,58,237,0.15)';this.style.transform='translateY(0)'">
+      <div class="searchable-card" data-search="anshu dth sales service dish tv cable set top box jaiswal kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #7c3aed;box-shadow:0 4px 24px rgba(124,58,237,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(124,58,237,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(124,58,237,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -840,7 +853,7 @@ footer span{color:#4fa3e0;}
           </div>
 
         </div>
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #be123c;box-shadow:0 4px 24px rgba(190,18,60,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(190,18,60,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(190,18,60,0.15)';this.style.transform='translateY(0)'">
+      <div style="background:#fff;border-radius:14px;padding:32px;class="searchable-card" data-search="ishita jaiswal advocate lawyer high court allahabad prayagraj criminal civil" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #be123c;box-shadow:0 4px 24px rgba(190,18,60,0.15;transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(190,18,60,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(190,18,60,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -905,7 +918,7 @@ footer span{color:#4fa3e0;}
 <!-- NILI JAISWAL & PRANJAL SECTION -->
 <section style="background:#f8fbff;padding:40px 24px;"><div style="max-width:1200px;margin:0 auto;display:grid;gap:24px;">
       <!-- NILI JAISWAL CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #0891b2;box-shadow:0 4px 24px rgba(8,145,178,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(8,145,178,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(8,145,178,0.15)';this.style.transform='translateY(0)'">
+      <div style="background:#fff;border-radius:14px;padding:32px;class="searchable-card" data-search="nili jaiswal teacher counselor teaching guidance career makhaupur kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #0891b2;box-shadow:0 4px 24px rgba(8,145,178,0.15;transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(8,145,178,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(8,145,178,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -956,7 +969,7 @@ footer span{color:#4fa3e0;}
         </div>
       </div>
       <!-- ENGR. PRANJAL KESHARWANI CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #b45309;box-shadow:0 4px 24px rgba(180,83,9,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(180,83,9,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(180,83,9,0.15)';this.style.transform='translateY(0)'">
+      <div style="background:#fff;border-radius:14px;padding:32px;class="searchable-card" data-search="pranjal kesharwani engineer supervisor technical govt college tewa manjhanpur kaushambi" style="background:#fff;border-radius:14px;padding:32px;border:2px solid #b45309;box-shadow:0 4px 24px rgba(180,83,9,0.15;transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(180,83,9,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(180,83,9,0.15)';this.style.transform='translateY(0)'">
         <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
 
           <!-- Logo & Brand -->
@@ -1017,55 +1030,55 @@ footer span{color:#4fa3e0;}
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:40px;">
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="vandana jaiswal owner director" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">V</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Vandana Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Owner & Director</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="nili jaiswal accountant" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">N</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Nili Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Accountant</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="anjali jaiswal sales person" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">A</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Anjali Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Sales Person</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="payal jaiswal delivery marketing" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">P</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Payal Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Delivery & Marketing</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="anshu jaiswal delivery operations marketing" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">A</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Anshu Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Delivery & Operations + Marketing</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="ishita jaiswal marketing" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">I</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Ishita Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Marketing</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="manoj kumar jaiswal customer support" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">M</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Manoj Kumar Jaiswal</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Customer Support</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="pranjal kesharwani supervisor engineer" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">P</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Engr. Pranjal Kesharwani</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">Supervisor</p>
       </div>
 
-      <div style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
+      <div class="searchable-card" data-search="jimmy it person technology" style="background:#fff;border-radius:14px;padding:24px;text-align:center;border:1px solid #d6e8f8;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(13,61,138,0.12)'" onmouseout="this.style.boxShadow='none'">
         <div style="width:64px;height:64px;background:linear-gradient(135deg,#0d3d8a,#4fa3e0);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:#fff;font-weight:700;">J</div>
         <h4 style="font-size:15px;font-weight:700;color:#0d3d8a;margin-bottom:4px;">Jimmy</h4>
         <p style="font-size:12px;color:#888;background:#e8f2ff;padding:3px 10px;border-radius:20px;display:inline-block;">IT Person</p>
@@ -1419,7 +1432,40 @@ window.addEventListener('load', function() {
   }, 900);
 });
 
-// Contact form WhatsApp
+// Search functionality
+function doSearch(query) {
+  var q = query.trim().toLowerCase();
+  var cards = document.querySelectorAll('.searchable-card');
+  var shown = 0;
+  var clearBtn = document.getElementById('search-clear');
+  var countEl = document.getElementById('search-count');
+  var noRes = document.getElementById('no-results');
+
+  clearBtn.style.display = q ? 'inline-block' : 'none';
+
+  cards.forEach(function(card) {
+    var keywords = (card.getAttribute('data-search') || '').toLowerCase();
+    var text = card.innerText.toLowerCase();
+    var match = !q || keywords.includes(q) || text.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+
+  if (q) {
+    countEl.textContent = shown + ' result' + (shown !== 1 ? 's' : '') + ' mila';
+    noRes.style.display = shown === 0 ? 'block' : 'none';
+    document.getElementById('no-results-term').textContent = query;
+  } else {
+    countEl.textContent = '';
+    noRes.style.display = 'none';
+  }
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  doSearch('');
+}
+
 function sendContactWA() {
   var name = document.getElementById('ct-name').value.trim();
   var contact = document.getElementById('ct-contact').value.trim();
@@ -1462,6 +1508,8 @@ var statsEl = document.querySelector('.stats');
 if(statsEl) statsObserver.observe(statsEl);
 </script>
 
+<script>
+function submitCareers() {
   var name = document.getElementById('c-name').value.trim();
   var phone = document.getElementById('c-phone').value.trim();
   var email = document.getElementById('c-email').value.trim();
