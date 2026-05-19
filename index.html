@@ -111,18 +111,82 @@ section{padding:72px 24px;}
 footer{background:#060f25;color:rgba(255,255,255,0.5);text-align:center;padding:24px;font-size:13px;}
 footer span{color:#4fa3e0;}
 
+/* SCROLL TO TOP */
+#scrollTop{position:fixed;bottom:100px;right:28px;width:44px;height:44px;background:#0d3d8a;color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(13,61,138,0.35);z-index:998;transition:all .2s;}
+#scrollTop:hover{background:#1a5fbb;transform:translateY(-3px);}
+
+/* MOBILE MENU */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2.5px;background:#0d3d8a;border-radius:2px;transition:all .3s;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.98);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+.mobile-menu a{font-size:22px;font-weight:700;color:#0d3d8a;text-decoration:none;}
+.mobile-menu.open{display:flex;}
+.mobile-close{position:absolute;top:20px;right:24px;font-size:28px;cursor:pointer;color:#0d3d8a;background:none;border:none;}
+
+/* TESTIMONIALS */
+.testimonials{background:#f4f8ff;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px;}
+.testi-card{background:#fff;border-radius:16px;padding:28px;border:1px solid #d6e8f8;position:relative;transition:box-shadow .2s,transform .2s;}
+.testi-card:hover{box-shadow:0 8px 32px rgba(13,61,138,0.12);transform:translateY(-3px);}
+.testi-stars{color:#f5a623;font-size:16px;margin-bottom:12px;}
+.testi-text{font-size:14px;color:#444;line-height:1.8;margin-bottom:16px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:700;color:#0d3d8a;}
+.testi-loc{font-size:12px;color:#888;}
+.quote-icon{position:absolute;top:18px;right:20px;font-size:36px;color:#e8f2ff;line-height:1;}
+
+/* SOCIAL LINKS */
+.social-links{display:flex;justify-content:center;gap:14px;margin-top:14px;}
+.social-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;text-decoration:none;transition:transform .2s,opacity .2s;}
+.social-btn:hover{transform:scale(1.15);opacity:.85;}
+
+/* PAGE LOADER */
+#loader{position:fixed;inset:0;background:#0d3d8a;display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .5s,visibility .5s;}
+#loader.hidden{opacity:0;visibility:hidden;}
+.loader-bird{width:60px;height:60px;animation:flap .6s ease-in-out infinite alternate;}
+@keyframes flap{from{transform:translateY(0) scaleY(1);}to{transform:translateY(-12px) scaleY(0.9);}}
+.loader-text{color:#fff;font-size:18px;font-weight:700;margin-top:16px;letter-spacing:2px;}
+
 /* RESPONSIVE */
 @media(max-width:700px){
   nav{padding:14px 20px;}
   .nav-links{display:none;}
+  .hamburger{display:flex;}
   .hero h1{font-size:34px;}
   .about-grid,.biz-grid,.why-grid,.contact-grid{grid-template-columns:1fr;}
   .stat{padding:12px 20px;}
   section{padding:48px 16px;}
+  .testi-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
+
+<!-- PAGE LOADER -->
+<div id="loader">
+  <div style="text-align:center;">
+    <svg class="loader-bird" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 45 C18 38 24 30 34 32 C44 34 48 24 58 26 C52 34 44 38 40 40 L48 50 C40 48 28 48 15 45Z" fill="white" opacity="0.9"/>
+      <path d="M15 45 C18 38 24 30 34 32 C40 34 44 28 52 27 C48 33 44 37 40 40Z" fill="#a8d4f5" opacity="0.8"/>
+    </svg>
+    <div class="loader-text">NILI ENTERPRISES</div>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#businesses" onclick="closeMobileMenu()">Our Business</a>
+  <a href="#why" onclick="closeMobileMenu()">Why Us</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="#team" onclick="closeMobileMenu()">Our Team</a>
+  <a onclick="closeMobileMenu();document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';" style="color:#f5a623;cursor:pointer;">🚀 Careers</a>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- NAV -->
 <nav>
@@ -145,10 +209,11 @@ footer span{color:#4fa3e0;}
     <a href="#contact">Contact</a>
   </div>
   <div style="display:flex;gap:10px;align-items:center;">
-  <div style="display:flex;gap:10px;align-items:center;">
     <a onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:#f5a623;color:#0a2540;padding:9px 22px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none;transition:background .2s;cursor:pointer;" onmouseover="this.style.background='#e09415'" onmouseout="this.style.background='#f5a623'">🚀 Careers</a>
     <a href="#contact" class="nav-cta">Get In Touch</a>
-  </div>
+    <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
@@ -209,6 +274,64 @@ footer span{color:#4fa3e0;}
   </div>
 </section>
 
+<!-- VISION & MISSION -->
+<section style="background:linear-gradient(135deg,#060f25,#0d3d8a);padding:72px 24px;overflow:hidden;position:relative;">
+  <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:rgba(255,255,255,0.03);border-radius:50%;"></div>
+  <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:rgba(245,166,35,0.05);border-radius:50%;"></div>
+  <div style="max-width:900px;margin:0 auto;position:relative;z-index:1;">
+
+    <!-- Heading -->
+    <div style="text-align:center;margin-bottom:52px;">
+      <div style="display:inline-block;background:rgba(245,166,35,0.15);color:#f5a623;font-size:12px;font-weight:700;padding:6px 18px;border-radius:30px;border:1px solid rgba(245,166,35,0.3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;">🌟 Hamara Uddeshya</div>
+      <h2 style="font-family:'Baloo 2',cursive;font-size:clamp(26px,5vw,40px);font-weight:800;color:#fff;margin-bottom:14px;">NILI Enterprises — <span style="color:#f5a623;">Kyun aur Kisliye?</span></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.65);max-width:600px;margin:0 auto;line-height:1.8;">Kaushambi aur Prayagraj ke local vyapariyon ko ek strong digital aur business network dena — yahi hai humara sapna!</p>
+    </div>
+
+    <!-- Vision Mission Values Cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:48px;">
+
+      <!-- Vision -->
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px 24px;transition:transform .2s,background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.10)';this.style.transform='translateY(-4px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <div style="width:52px;height:52px;background:linear-gradient(135deg,#f5a623,#fbbf24);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;">🔭</div>
+        <div style="font-size:11px;font-weight:700;color:#f5a623;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Vision</div>
+        <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;">Ek Majboot Network</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;">Kaushambi aur Prayagraj ke har chhhote-bade vyapari ko ek powerful digital platform par laana — jahan unki pehchaan ho, unka vikas ho!</p>
+      </div>
+
+      <!-- Mission -->
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px 24px;transition:transform .2s,background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.10)';this.style.transform='translateY(-4px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <div style="width:52px;height:52px;background:linear-gradient(135deg,#0d3d8a,#1a6fd4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;">🎯</div>
+        <div style="font-size:11px;font-weight:700;color:#4fa3e0;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Mission</div>
+        <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;">Teeno Lakshya Ek Saath</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;">Local businesses ko <strong style="color:#fff;">digital pehchaan</strong> dena, naujawanon ko <strong style="color:#fff;">rozgar aur network</strong> dena, aur logo ko <strong style="color:#fff;">quality products & services</strong> pahunchana!</p>
+      </div>
+
+      <!-- Values -->
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px 24px;transition:transform .2s,background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.10)';this.style.transform='translateY(-4px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <div style="width:52px;height:52px;background:linear-gradient(135deg,#16a34a,#4ade80);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;">💎</div>
+        <div style="font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Values</div>
+        <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;">Hamare Mool Mulya</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;">Imandari, bharosa, saath milkar kaam karna — yahi hamari neev hai. Har member ki safalta hi NILI Enterprises ki safalta hai!</p>
+      </div>
+
+    </div>
+
+    <!-- Founder Quote -->
+    <div style="background:rgba(245,166,35,0.08);border:1.5px solid rgba(245,166,35,0.25);border-radius:20px;padding:32px 36px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:12px;">🙏</div>
+      <p style="font-size:16px;color:rgba(255,255,255,0.9);line-height:1.9;font-style:italic;margin-bottom:16px;">"Hamara sapna hai ki Kaushambi aur Prayagraj ka har vyapari — chahe chhhoti dukaan ho ya badi — digital duniya mein apni jagah banaye, ek doosre se jude aur milkar tarakki kare!"</p>
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.08);padding:10px 20px;border-radius:50px;">
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#f5a623,#fbbf24);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👩</div>
+        <div style="text-align:left;">
+          <div style="font-size:13px;font-weight:700;color:#f5a623;">Vandana Jaiswal</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.55);">Founder & Director, NILI Enterprises</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- BUSINESSES -->
 <section id="businesses" class="businesses">
   <div class="section-inner">
@@ -229,6 +352,13 @@ footer span{color:#4fa3e0;}
           <span class="biz-tag">Supply Chain</span>
           <span class="biz-tag">Distribution</span>
           <span class="biz-tag">Wholesale</span>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px dashed #d1e3f8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #86efac;">🟢 1 Vacancy</span>
+            <span style="font-size:12px;color:#666;">Employee chahiye!</span>
+          </div>
+          <button onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:linear-gradient(135deg,#0d3d8a,#1a6fd4);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;">📝 Apply Karen</button>
         </div>
       </div>
       <div class="biz-card">
@@ -348,108 +478,12 @@ footer span{color:#4fa3e0;}
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- NILI JAISWAL CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #0891b2;box-shadow:0 4px 24px rgba(8,145,178,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(8,145,178,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(8,145,178,0.15)';this.style.transform='translateY(0)'">
-        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
-
-          <!-- Logo & Brand -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
-            <div style="width:90px;height:90px;background:linear-gradient(135deg,#164e63,#0891b2,#22d3ee);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;border:3px solid #22d3ee;box-shadow:0 4px 16px rgba(8,145,178,0.35);">🎓</div>
-            <div style="background:linear-gradient(90deg,#164e63,#0891b2);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Teacher & Counselor ✨</div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px dashed #f0c070;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #86efac;">🟢 1 Vacancy</span>
+            <span style="font-size:12px;color:#666;">Employee chahiye!</span>
           </div>
-
-          <!-- Main Info -->
-          <div style="flex:1;min-width:200px;">
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-              <h3 style="font-size:22px;font-weight:800;color:#164e63;margin:0;">Nili Jaiswal</h3>
-              <span style="font-size:13px;font-weight:600;color:#0891b2;font-style:italic;">Teacher & Counselor</span>
-            </div>
-            <p style="font-size:14px;color:#0891b2;font-style:italic;margin-bottom:14px;font-weight:700;line-height:1.6;background:#ecfeff;padding:12px 16px;border-radius:10px;border-left:4px solid #0891b2;">"सिंह बनो, सिंहासन की चिंता मत करो,<br>जिस शीला पर बैठोगे वही सिंहासन बन जायेगा।"</p>
-            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">एक समर्पित <strong>शिक्षक एवं काउंसलर</strong> जो विद्यार्थियों और लोगों के जीवन को सही दिशा देने का कार्य करती हैं। शिक्षा एवं मार्गदर्शन के माध्यम से समाज में सकारात्मक बदलाव लाने की प्रतिबद्धता।</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">📚 Teaching</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🧠 Counseling</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🌱 Career Guidance</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">💡 Motivation</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🤝 Personal Development</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">👨‍👩‍👧 Family Counseling</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🎯 Goal Setting</span>
-              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">✨ Life Skills</span>
-            </div>
-          </div>
-
-          <!-- Contact Details -->
-          <div style="background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #67e8f9;">
-            <div style="font-size:13px;font-weight:700;color:#164e63;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📞</span><a href="tel:9451956775" style="color:#164e63;font-weight:600;text-decoration:none;">9451956775</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>💬</span><a href="https://wa.me/919451956775" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📍</span><span style="color:#555;">Makhaupur, Kaushambi</span>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>🏫</span><span style="color:#555;font-weight:600;">Teacher & Counselor</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <!-- ENGR. PRANJAL KESHARWANI CARD -->
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #b45309;box-shadow:0 4px 24px rgba(180,83,9,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(180,83,9,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(180,83,9,0.15)';this.style.transform='translateY(0)'">
-        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
-
-          <!-- Logo & Brand -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
-            <div style="width:90px;height:90px;background:linear-gradient(135deg,#78350f,#b45309,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;border:3px solid #f59e0b;box-shadow:0 4px 16px rgba(180,83,9,0.35);">⚙️</div>
-            <div style="background:linear-gradient(90deg,#78350f,#b45309);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Engineer 🎓</div>
-          </div>
-
-          <!-- Main Info -->
-          <div style="flex:1;min-width:200px;">
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-              <h3 style="font-size:22px;font-weight:800;color:#78350f;margin:0;">Engr. Pranjal Kesharwani</h3>
-              <span style="font-size:13px;font-weight:600;color:#b45309;font-style:italic;">Supervisor & Technical Expert</span>
-            </div>
-            <p style="font-size:13px;color:#b45309;font-style:italic;margin-bottom:10px;font-weight:600;">"तकनीकी दक्षता से हर चुनौती का समाधान।"</p>
-            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">Practicing Engineer at <strong>Mahatma Jyotiba Phule Government College, Tewa Manjhanpur</strong>। Nili Enterprises को Technical Supervision एवं Engineering Expertise प्रदान करते हैं। अनुभवी और समर्पित पेशेवर।</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🏗️ Supervisor</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">⚙️ Engineering</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🔬 Technical Expert</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🎓 Govt. College Faculty</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">📐 Project Planning</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🏢 Operations</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">📊 Quality Control</span>
-              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🤝 Nili Enterprises</span>
-            </div>
-          </div>
-
-          <!-- Contact Details -->
-          <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #fcd34d;">
-            <div style="font-size:13px;font-weight:700;color:#78350f;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📞</span><a href="tel:6386404162" style="color:#78350f;font-weight:600;text-decoration:none;">6386404162</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>💬</span><a href="https://wa.me/916386404162" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📍</span><span style="color:#555;">Makhupur, Chail, Kaushambi</span>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>🏛️</span><span style="color:#555;font-weight:600;">Govt. College, Tewa Manjhanpur</span>
-              </div>
-            </div>
-          </div>
-
+          <button onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:linear-gradient(135deg,#e8a020,#f5c842);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;">📝 Apply Karen</button>
         </div>
       </div>
 
@@ -498,6 +532,13 @@ footer span{color:#4fa3e0;}
             <img src="https://drive.google.com/thumbnail?id=1GWuDPKpGT9grwk7v6Ec61vKEK9gYZZLh&sz=w800" alt="Shakuntala Traders Shop 4" style="width:100%;height:200px;object-fit:cover;border-radius:12px;border:2px solid #86efac;box-shadow:0 4px 16px rgba(22,163,74,0.15);" onerror="this.style.display='none'"/>
             <img src="https://drive.google.com/thumbnail?id=1yRqzdu46-M9mFRvlQNlegqtK52FITvvs&sz=w800" alt="Shakuntala Traders Shop 5" style="width:100%;height:200px;object-fit:cover;border-radius:12px;border:2px solid #86efac;box-shadow:0 4px 16px rgba(22,163,74,0.15);" onerror="this.style.display='none'"/>
           </div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px dashed #86efac;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #86efac;">🟢 1 Vacancy</span>
+            <span style="font-size:12px;color:#666;">Employee chahiye!</span>
+          </div>
+          <button onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:linear-gradient(135deg,#16a34a,#4ade80);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;">📝 Apply Karen</button>
         </div>
       </div>
 
@@ -555,8 +596,15 @@ footer span{color:#4fa3e0;}
           <div style="font-size:12px;font-weight:700;color:#4c1d95;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">📸 Hamari Services</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
             <img src="https://drive.google.com/thumbnail?id=1aHwnkaTh8mR0MlGIOCKHesmEkYZXpdYo&sz=w800" alt="Amool Chandra Kesharwani 1" style="width:100%;height:220px;object-fit:cover;border-radius:12px;border:2px solid #c4b5fd;box-shadow:0 4px 16px rgba(124,58,237,0.15);" onerror="this.style.display='none'"/>
-            <img src="https://drive.google.com/thumbnail?id=1kNVcsMhvVBqlEBN5Aad7qZrSs1Xmxso4&sz=w800" alt="Amool Chandra Kesharwani 2" style="width:100%;height:220px;object-fit:cover;border-radius:12px;border:2px solid #c4b5fd;box-shadow:0 4px 16px rgba(124,58,237,0.15);" onerror="this.style.display='none'"/>
+            <img src="https://drive.google.com/thumbnail?id=1P5O-XedSpoDHgMCpi8x-98RqDxUPCHBC&sz=w800" alt="Amool Chandra Kesharwani 2" style="width:100%;height:220px;object-fit:cover;border-radius:12px;border:2px solid #c4b5fd;box-shadow:0 4px 16px rgba(124,58,237,0.15);" onerror="this.style.display='none'"/>
           </div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px dashed #c4b5fd;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #86efac;">🟢 2 Vacancies</span>
+            <span style="font-size:12px;color:#666;">Employees chahiye!</span>
+          </div>
+          <button onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;">📝 Apply Karen</button>
         </div>
       </div>
 
@@ -616,57 +664,12 @@ footer span{color:#4fa3e0;}
             <img src="https://drive.google.com/thumbnail?id=1OhmFeUiFrdhZxNl__uZmMwJT8ffoLxaU&sz=w800" alt="Kanak Electrical Shop 2" style="width:100%;height:220px;object-fit:cover;border-radius:12px;border:2px solid #fcd34d;box-shadow:0 4px 16px rgba(245,158,11,0.2);" onerror="this.style.display='none'"/>
           </div>
         </div>
-      </div>
-
-      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #be123c;box-shadow:0 4px 24px rgba(190,18,60,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(190,18,60,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(190,18,60,0.15)';this.style.transform='translateY(0)'">
-        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
-
-          <!-- Logo & Brand -->
-          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
-            <div style="width:90px;height:90px;background:linear-gradient(135deg,#881337,#be123c,#fb7185);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;border:3px solid #fb7185;box-shadow:0 4px 16px rgba(190,18,60,0.35);">⚖️</div>
-            <div style="background:linear-gradient(90deg,#881337,#be123c);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Advocate 🏛️</div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px dashed #fcd34d;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid #86efac;">🟢 1 Vacancy</span>
+            <span style="font-size:12px;color:#666;">Employee chahiye!</span>
           </div>
-
-          <!-- Main Info -->
-          <div style="flex:1;min-width:200px;">
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-              <h3 style="font-size:22px;font-weight:800;color:#881337;margin:0;">Advocate Ishita Jaiswal</h3>
-              <span style="font-size:13px;font-weight:600;color:#be123c;font-style:italic;">High Court Advocate, Allahabad</span>
-            </div>
-            <p style="font-size:13px;color:#be123c;font-style:italic;margin-bottom:10px;font-weight:600;">"न्याय की राह में, आपके साथ हर कदम।"</p>
-            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">Practicing Advocate at <strong>Judicature of High Court Allahabad, Prayagraj</strong>। Criminal एवं Civil दोनों प्रकार के मामलों में कुशल एवं अनुभवी। मजबूत कानूनी दक्षता के साथ आपके अधिकारों की रक्षा।</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">⚖️ Criminal Cases</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📜 Civil Cases</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🏛️ High Court</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📋 Allahabad HC</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🔍 Legal Consultation</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📝 Drafting & Pleading</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🤝 Legal Aid</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🏠 Property Disputes</span>
-              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">👨‍👩‍👧 Family Law</span>
-            </div>
-          </div>
-
-          <!-- Contact Details -->
-          <div style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #fda4af;">
-            <div style="font-size:13px;font-weight:700;color:#881337;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📞</span><a href="tel:9250932266" style="color:#881337;font-weight:600;text-decoration:none;">9250932266</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>💬</span><a href="https://wa.me/919250932266" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>📍</span><span style="color:#555;">High Court, Prayagraj</span>
-              </div>
-              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
-                <span>🏛️</span><span style="color:#555;font-weight:600;">Allahabad High Court</span>
-              </div>
-            </div>
-          </div>
-
+          <button onclick="document.getElementById('careers-page').style.display='block';document.body.style.overflow='hidden';window.scrollTo(0,0);" style="background:linear-gradient(135deg,#b45309,#f59e0b);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;">📝 Apply Karen</button>
         </div>
       </div>
 
@@ -837,12 +840,173 @@ footer span{color:#4fa3e0;}
           </div>
 
         </div>
+      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #be123c;box-shadow:0 4px 24px rgba(190,18,60,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(190,18,60,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(190,18,60,0.15)';this.style.transform='translateY(0)'">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+
+          <!-- Logo & Brand -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
+            <div style="width:90px;height:90px;background:linear-gradient(135deg,#881337,#be123c,#fb7185);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;border:3px solid #fb7185;box-shadow:0 4px 16px rgba(190,18,60,0.35);">⚖️</div>
+            <div style="background:linear-gradient(90deg,#881337,#be123c);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Advocate 🏛️</div>
+          </div>
+
+          <!-- Main Info -->
+          <div style="flex:1;min-width:200px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+              <h3 style="font-size:22px;font-weight:800;color:#881337;margin:0;">Advocate Ishita Jaiswal</h3>
+              <span style="font-size:13px;font-weight:600;color:#be123c;font-style:italic;">High Court Advocate, Allahabad</span>
+            </div>
+            <p style="font-size:13px;color:#be123c;font-style:italic;margin-bottom:10px;font-weight:600;">"न्याय की राह में, आपके साथ हर कदम।"</p>
+            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">Practicing Advocate at <strong>Judicature of High Court Allahabad, Prayagraj</strong>। Criminal एवं Civil दोनों प्रकार के मामलों में कुशल एवं अनुभवी। मजबूत कानूनी दक्षता के साथ आपके अधिकारों की रक्षा।</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">⚖️ Criminal Cases</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📜 Civil Cases</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🏛️ High Court</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📋 Allahabad HC</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🔍 Legal Consultation</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">📝 Drafting & Pleading</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🤝 Legal Aid</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">🏠 Property Disputes</span>
+              <span style="background:#fff1f2;color:#881337;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fda4af;">👨‍👩‍👧 Family Law</span>
+            </div>
+          </div>
+
+          <!-- Contact Details -->
+          <div style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #fda4af;">
+            <div style="font-size:13px;font-weight:700;color:#881337;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📞</span><a href="tel:9250932266" style="color:#881337;font-weight:600;text-decoration:none;">9250932266</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>💬</span><a href="https://wa.me/919250932266" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📍</span><span style="color:#555;">High Court, Prayagraj</span>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>🏛️</span><span style="color:#555;font-weight:600;">Allahabad High Court</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       </div>
 
 
     </div>
   </div>
 </section>
+
+
+
+
+<!-- NILI JAISWAL & PRANJAL SECTION -->
+<section style="background:#f8fbff;padding:40px 24px;"><div style="max-width:1200px;margin:0 auto;display:grid;gap:24px;">
+      <!-- NILI JAISWAL CARD -->
+      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #0891b2;box-shadow:0 4px 24px rgba(8,145,178,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(8,145,178,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(8,145,178,0.15)';this.style.transform='translateY(0)'">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+
+          <!-- Logo & Brand -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
+            <div style="width:90px;height:90px;background:linear-gradient(135deg,#164e63,#0891b2,#22d3ee);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;border:3px solid #22d3ee;box-shadow:0 4px 16px rgba(8,145,178,0.35);">🎓</div>
+            <div style="background:linear-gradient(90deg,#164e63,#0891b2);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Teacher & Counselor ✨</div>
+          </div>
+
+          <!-- Main Info -->
+          <div style="flex:1;min-width:200px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+              <h3 style="font-size:22px;font-weight:800;color:#164e63;margin:0;">Nili Jaiswal</h3>
+              <span style="font-size:13px;font-weight:600;color:#0891b2;font-style:italic;">Teacher & Counselor</span>
+            </div>
+            <p style="font-size:14px;color:#0891b2;font-style:italic;margin-bottom:14px;font-weight:700;line-height:1.6;background:#ecfeff;padding:12px 16px;border-radius:10px;border-left:4px solid #0891b2;">"सिंह बनो, सिंहासन की चिंता मत करो,<br>जिस शीला पर बैठोगे वही सिंहासन बन जायेगा।"</p>
+            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">एक समर्पित <strong>शिक्षक एवं काउंसलर</strong> जो विद्यार्थियों और लोगों के जीवन को सही दिशा देने का कार्य करती हैं। शिक्षा एवं मार्गदर्शन के माध्यम से समाज में सकारात्मक बदलाव लाने की प्रतिबद्धता।</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">📚 Teaching</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🧠 Counseling</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🌱 Career Guidance</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">💡 Motivation</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🤝 Personal Development</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">👨‍👩‍👧 Family Counseling</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">🎯 Goal Setting</span>
+              <span style="background:#ecfeff;color:#164e63;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #67e8f9;">✨ Life Skills</span>
+            </div>
+          </div>
+
+          <!-- Contact Details -->
+          <div style="background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #67e8f9;">
+            <div style="font-size:13px;font-weight:700;color:#164e63;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📞</span><a href="tel:9451956775" style="color:#164e63;font-weight:600;text-decoration:none;">9451956775</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>💬</span><a href="https://wa.me/919451956775" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📍</span><span style="color:#555;">Makhaupur, Kaushambi</span>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>🏫</span><span style="color:#555;font-weight:600;">Teacher & Counselor</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- ENGR. PRANJAL KESHARWANI CARD -->
+      <div style="background:#fff;border-radius:14px;padding:32px;border:2px solid #b45309;box-shadow:0 4px 24px rgba(180,83,9,0.15);transition:box-shadow .2s,transform .2s;grid-column:1/-1;" onmouseover="this.style.boxShadow='0 8px 40px rgba(180,83,9,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(180,83,9,0.15)';this.style.transform='translateY(0)'">
+        <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+
+          <!-- Logo & Brand -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:140px;">
+            <div style="width:90px;height:90px;background:linear-gradient(135deg,#78350f,#b45309,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;border:3px solid #f59e0b;box-shadow:0 4px 16px rgba(180,83,9,0.35);">⚙️</div>
+            <div style="background:linear-gradient(90deg,#78350f,#b45309);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;text-align:center;">Engineer 🎓</div>
+          </div>
+
+          <!-- Main Info -->
+          <div style="flex:1;min-width:200px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+              <h3 style="font-size:22px;font-weight:800;color:#78350f;margin:0;">Engr. Pranjal Kesharwani</h3>
+              <span style="font-size:13px;font-weight:600;color:#b45309;font-style:italic;">Supervisor & Technical Expert</span>
+            </div>
+            <p style="font-size:13px;color:#b45309;font-style:italic;margin-bottom:10px;font-weight:600;">"तकनीकी दक्षता से हर चुनौती का समाधान।"</p>
+            <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:12px;">Practicing Engineer at <strong>Mahatma Jyotiba Phule Government College, Tewa Manjhanpur</strong>। Nili Enterprises को Technical Supervision एवं Engineering Expertise प्रदान करते हैं। अनुभवी और समर्पित पेशेवर।</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🏗️ Supervisor</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">⚙️ Engineering</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🔬 Technical Expert</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🎓 Govt. College Faculty</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">📐 Project Planning</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🏢 Operations</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">📊 Quality Control</span>
+              <span style="background:#fffbeb;color:#78350f;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;border:1px solid #fcd34d;">🤝 Nili Enterprises</span>
+            </div>
+          </div>
+
+          <!-- Contact Details -->
+          <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:12px;padding:18px 22px;min-width:220px;border:1px solid #fcd34d;">
+            <div style="font-size:13px;font-weight:700;color:#78350f;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📋 संपर्क विवरण</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📞</span><a href="tel:6386404162" style="color:#78350f;font-weight:600;text-decoration:none;">6386404162</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>💬</span><a href="https://wa.me/916386404162" target="_blank" style="color:#25d366;font-weight:600;text-decoration:none;">WhatsApp करें</a>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>📍</span><span style="color:#555;">Makhupur, Chail, Kaushambi</span>
+              </div>
+              <div style="font-size:13px;color:#444;display:flex;align-items:center;gap:8px;">
+                <span>🏛️</span><span style="color:#555;font-weight:600;">Govt. College, Tewa Manjhanpur</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
 
 <section id="team">
   <div class="section-inner">
@@ -911,6 +1075,80 @@ footer span{color:#4fa3e0;}
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="section-tag">⭐ Reviews</div>
+      <h2 class="section-title">Log Kya Kehte Hain</h2>
+      <p class="section-sub" style="margin:0 auto;">Hamare saathiyon aur customers ki sacchi baat — unhi ki zubaan mein.</p>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">NILI Enterprises se jud ke mujhe ek reliable business network mila. Vandana ji ki team bahut dedicated hai — har problem ka solution milta hai!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#0d3d8a,#4fa3e0);">R</div>
+          <div><div class="testi-name">Ramesh Kumar</div><div class="testi-loc">📍 Kaushambi</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Amit Sen ji ke CSC center se sari government services ghar ke paas mil jaati hain. PAN card, Aadhaar, bijli bill — sab kuch ek hi jagah, bahut suvidha hai!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#16a34a,#4ade80);">S</div>
+          <div><div class="testi-name">Sunita Devi</div><div class="testi-loc">📍 Makhaupur</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Kanak Electrical se wiring ka kaam karwaya — quality zabardast thi aur rate bhi fair tha. Rajesh bhai ka kaam dekhke dil khush ho gaya!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#b45309,#f59e0b);">A</div>
+          <div><div class="testi-name">Anil Yadav</div><div class="testi-loc">📍 Tilhapur</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Nili ji ne career counseling mein bahut help ki. Unki guidance se mujhe sahi direction mila aur aaj main apne goal pe kaam kar raha hoon. Dil se shukriya!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#164e63,#0891b2);">P</div>
+          <div><div class="testi-name">Priya Mishra</div><div class="testi-loc">📍 Prayagraj</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Anshu bhai ka DTH service center sach mein kaam ka hai. Set-top box kharab hua tha, 1 ghante mein theek ho gaya. Fast service aur honest pricing!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">M</div>
+          <div><div class="testi-name">Manoj Tiwari</div><div class="testi-loc">📍 Kaushambi</div></div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="quote-icon">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">NILI Enterprises ka poora team bahut hi professional aur friendly hai. Inka network hamare village tak bhi pahuncha — yeh bahut badi baat hai local log ke liye!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#0d3d8a,#1a5fbb);">V</div>
+          <div><div class="testi-name">Vikas Kesharwani</div><div class="testi-loc">📍 Chail, Kaushambi</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="section-inner">
@@ -952,17 +1190,17 @@ footer span{color:#4fa3e0;}
       <div class="contact-form">
         <div class="form-row">
           <label>Your Name</label>
-          <input type="text" placeholder="Enter your name"/>
+          <input type="text" id="ct-name" placeholder="Enter your name"/>
         </div>
         <div class="form-row">
           <label>Phone / Email</label>
-          <input type="text" placeholder="Your contact details"/>
+          <input type="text" id="ct-contact" placeholder="Your contact details"/>
         </div>
         <div class="form-row">
           <label>Message</label>
-          <textarea placeholder="Tell us about your requirement..."></textarea>
+          <textarea id="ct-msg" placeholder="Tell us about your requirement..."></textarea>
         </div>
-        <button class="submit-btn" onclick="alert('Thank you! We will contact you soon.')">Send Message</button>
+        <button class="submit-btn" onclick="sendContactWA()">Send Message via WhatsApp 💬</button>
       </div>
       </div>
     </div>
@@ -1162,12 +1400,68 @@ footer span{color:#4fa3e0;}
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <p>&copy; 2025 <span>Nili Enterprises</span>. All rights reserved. | Makhupur, Kaushambi — UP 212218, India</p>
+<footer style="background:#060f25;padding:32px 24px;">
+  <div class="social-links">
+    <a href="https://wa.me/919451956775" target="_blank" class="social-btn" style="background:#25d366;" title="WhatsApp">💬</a>
+    <a href="https://www.facebook.com/nilienterprises" target="_blank" class="social-btn" style="background:#1877f2;" title="Facebook">📘</a>
+    <a href="https://www.instagram.com/nilienterprises" target="_blank" class="social-btn" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);" title="Instagram">📸</a>
+    <a href="https://www.youtube.com/@nilienterprises" target="_blank" class="social-btn" style="background:#ff0000;" title="YouTube">▶️</a>
+  </div>
+  <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-top:14px;">&copy; 2025 <span style="color:#4fa3e0;">Nili Enterprises</span>. All rights reserved. | Makhupur, Kaushambi — UP 212218, India</p>
+  <p style="color:rgba(255,255,255,0.25);font-size:11px;margin-top:6px;">📞 +91 9451956775 | ✉️ nilijaiswal502@gmail.com</p>
 </footer>
 
 <script>
-function submitCareers() {
+// Page Loader
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loader').classList.add('hidden');
+  }, 900);
+});
+
+// Contact form WhatsApp
+function sendContactWA() {
+  var name = document.getElementById('ct-name').value.trim();
+  var contact = document.getElementById('ct-contact').value.trim();
+  var msg = document.getElementById('ct-msg').value.trim();
+  if (!name || !contact || !msg) {
+    alert('⚠️ Kripya sabhi fields fill karein!');
+    return;
+  }
+  var wa = '🙏 *NILI Enterprises — New Inquiry*\n\n';
+  wa += '👤 *Naam:* ' + name + '\n';
+  wa += '📞 *Contact:* ' + contact + '\n';
+  wa += '📝 *Message:* ' + msg;
+  window.open('https://wa.me/919451956775?text=' + encodeURIComponent(wa), '_blank');
+}
+
+// Scroll to top button
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scrollTop');
+  btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+});
+
+// Mobile menu close
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Counter animation for stats
+function animateCounters() {
+  var counters = document.querySelectorAll('.stat-num');
+  counters.forEach(function(el) {
+    el.style.transition = 'transform 0.3s';
+    el.style.transform = 'scale(1.2)';
+    setTimeout(function() { el.style.transform = 'scale(1)'; }, 300);
+  });
+}
+var statsObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if(e.isIntersecting) { animateCounters(); statsObserver.disconnect(); }});
+}, {threshold: 0.5});
+var statsEl = document.querySelector('.stats');
+if(statsEl) statsObserver.observe(statsEl);
+</script>
+
   var name = document.getElementById('c-name').value.trim();
   var phone = document.getElementById('c-phone').value.trim();
   var email = document.getElementById('c-email').value.trim();
